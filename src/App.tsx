@@ -1,7 +1,12 @@
 import React from "react";
+import Router from "./router";
 
 const App = () => {
-  return <div className="bg-red-500 p-10">Apps</div>;
+  return (
+    <div>
+      <Router />
+    </div>
+  );
 };
 
 export default App;
