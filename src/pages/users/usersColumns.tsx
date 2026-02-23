@@ -9,10 +9,10 @@ export const userColumns = (actions: {
   {
     label: "Status",
     key: "active",
-    render: (_, row) => {
+    render: (value) => {
       return (
-        <span className={row.active ? "text-green-500" : "text-red-500"}>
-          {row.active ? "Active" : "Deactive"}
+        <span className={value ? "text-green-500" : "text-red-500"}>
+          {value ? "Active" : "Deactive"}
         </span>
       );
     },
