@@ -12,7 +12,7 @@ interface GetUsersParams {
   search?: string;
 }
 
-export const userService = {
+export const UserService = {
   getAll: (params: GetUsersParams = {}): Promise<UserResponse> => {
     return apiClient.get("users", { params });
   },
