@@ -11,7 +11,7 @@ const timeout: number = Number(import.meta.env.VITE_TIMEOUT) || 5000;
 const apiClient: AxiosInstance = axios.create({
   baseURL,
   timeout,
-  headers: { "Content-Type": "application-json" },
+  headers: { "Content-Type": "application/json" },
 });
 
 apiClient.interceptors.request.use(

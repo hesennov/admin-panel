@@ -17,7 +17,8 @@ export default function ReusableTable<T extends { id: number | string }>({
 }: ReusableTableProps<T>) {
   //have to created loading and error components
   if (loading) return <div>Loading...</div>;
-  if (data.length === 0) return <div>no tnego data amigo</div>;
+  if (!Array.isArray(data)) return <div>No data</div>;
+  // if (data.length === 0) return <div>no tnego data amigo</div>;
   return (
     <div>
       <table className="table-auto w-full border">

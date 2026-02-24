@@ -14,7 +14,7 @@ export function useUsers() {
       setLoading(true);
       try {
         const res = await UserService.getAll({ page, search, limit: 10 });
-        setUsers(res.data);
+        setUsers(res.data); // bu array
         setTotalPages(res.totalPages);
       } finally {
         setLoading(false);
@@ -27,6 +27,12 @@ export function useUsers() {
     await UserService.delete(id);
     setUsers((prev) => prev.filter((u) => u.id !== id));
   };
+
+  const updateUser = (updateUser: User) => {
+    setUsers((prev) =>
+      prev.map((U) => (U.id === updateUser.id ? updateUser : U)),
+    );
+  };
   return {
     users,
     loading,
@@ -36,5 +42,6 @@ export function useUsers() {
     setPage,
     deleteUser,
     setSearch,
+    updateUser,
   };
 }
