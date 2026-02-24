@@ -54,6 +54,7 @@ export default function UserListPage() {
 
     const updated = await UserService.put(editingUser.id, data);
     console.log("UPDATED RESPONSE:", updated);
+    updateUser(updated);
     setEditingUser(null);
     console.log("EDIT DATA:", data);
   };

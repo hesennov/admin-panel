@@ -12,14 +12,24 @@ export default function EditUserForm({ user, onClose, onSave }: Props) {
     name: user.name,
     surname: user.surname,
     email: user.email,
+    active: user.active,
   });
 
-  const handelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     setForm({
+  //       ...form,
+  //       [e.target.name]: e.target.value,
+  //     });
+  //   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
+
   const handleSubmit = () => {
     onSave(form);
   };
@@ -29,22 +39,39 @@ export default function EditUserForm({ user, onClose, onSave }: Props) {
       <input
         name="name"
         value={form.name}
-        onChange={handelChange}
+        onChange={handleChange}
         className="border p-2"
       />
       <input
         name="surname"
         value={form.surname}
-        onChange={handelChange}
+        onChange={handleChange}
         className="border p-2"
       />
 
       <input
         name="email"
         value={form.email}
-        onChange={handelChange}
+        onChange={handleChange}
         className="border p-2"
       />
+      {/* ✅ CHECKBOX - Active durumu */}
+      <label className="flex items-center gap-2 cursor-pointer p-2 border rounded hover:bg-gray-50">
+        <input
+          type="checkbox"
+          name="active"
+          checked={form.active}
+          onChange={handleChange}
+          className="w-4 h-4 text-blue-600"
+        />
+        <span
+          className={
+            form.active ? "text-green-600 font-medium" : "text-red-500"
+          }
+        >
+          {form.active ? "✅ Active" : "❌ Inactive"}
+        </span>
+      </label>
       <div>
         <button
           className="px-3 py-1 bg-blue-500 text-white"
