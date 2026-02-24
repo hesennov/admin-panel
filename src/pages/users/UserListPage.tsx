@@ -6,7 +6,6 @@ import ReusablePagination from "../../components/reusablePagination/ReusablePagi
 import ReusableModal from "../../components/reusableModal/ReusableModal";
 import EditUserForm from "./EditUserForm";
 import type { UpdateUserData, User } from "../../types/user";
-import apiClient from "../../api/client";
 import { UserService } from "../../services/userService";
 export default function UserListPage() {
   const {
