@@ -35,7 +35,10 @@ export default function ReusableTable<T extends { id: number | string }>({
               {columns.map((col) => {
                 const value = row[col.key];
                 return (
-                  <td className="px-4 py-2 border" key={String(row.id)}>
+                  <td
+                    className="px-4 py-2 border"
+                    key={`${row.id}-${String(col.key)}`}
+                  >
                     {col.render ? col.render(value, row) : String(value)}
                   </td>
                 );
