@@ -8,18 +8,23 @@ export function useUsers() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
+  const [error, setError] = useState<string | null>(null); // Hata state'i ekledik
+
+  const fetchUser = async () => {
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await UserService.getAll({ page, search, limit: 10 });
+      setUsers(res.data); // bu array
+      setTotalPages(res.totalPages);
+    } catch (err) {
+      setError("server not work amigo");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      setLoading(true);
-      try {
-        const res = await UserService.getAll({ page, search, limit: 10 });
-        setUsers(res.data); // bu array
-        setTotalPages(res.totalPages);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchUser();
   }, [page, search]);
 
@@ -44,5 +49,7 @@ export function useUsers() {
     deleteUser,
     setSearch,
     updateUser,
+    error,
+    fetchUser,
   };
 }

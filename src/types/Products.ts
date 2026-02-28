@@ -15,7 +15,6 @@ export interface ProductResponse {
 }
 
 export interface EditProduct {
-  id: number;
   title?: string;
   price?: number;
   stock?: number;

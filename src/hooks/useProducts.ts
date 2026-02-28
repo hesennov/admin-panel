@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import type { Products, ProductResponse, EditProduct } from "../types/Products";
 import { productService } from "../services/productService";
 export function useProducts() {
-  const [data, setData] = useState<Products[]>([]);
+  const [products, setProducts] = useState<Products[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [search, setSearch] = useState("");
@@ -13,7 +13,7 @@ export function useProducts() {
       setLoading(true);
       try {
         const res = await productService.gettAll({ page, search, limit: 10 });
-        setData(res.data);
+        setProducts(res.data);
         setTotalPages(res.totalPage);
       } finally {
         setLoading(false);
@@ -24,12 +24,24 @@ export function useProducts() {
 
   const deleteProducts = async (id: number) => {
     await productService.delete(id);
-    setData((prev) => prev.filter((p) => p.id !== id));
+    setProducts((prev) => prev.filter((p) => p.id !== id));
   };
 
   const updateProduct = async (updateProduct: Products) => {
-    setData((prev) =>
+    setProducts((prev) =>
       prev.map((p) => (p.id === updateProduct.id ? updateProduct : p)),
     );
+  };
+
+  return {
+    products,
+    page,
+    setPage,
+    totalPages,
+    setTotalPages,
+    search,
+    loading,
+    deleteProducts,
+    updateProduct,
   };
 }

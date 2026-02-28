@@ -7,6 +7,7 @@ import ReusableModal from "../../components/reusableModal/ReusableModal";
 import EditUserForm from "./EditUserForm";
 import type { UpdateUserData, User } from "../../types/user";
 import { UserService } from "../../services/userService";
+import StatusView from "../../components/common/StatusView";
 export default function UserListPage() {
   const {
     users,
@@ -14,10 +15,12 @@ export default function UserListPage() {
     page,
     totalPages,
     search,
+    error,
     setPage,
     setSearch,
     deleteUser,
     updateUser,
+    fetchUser,
   } = useUsers();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [editingUser, setEditingUser] = useState<User | null>(null);
@@ -57,6 +60,32 @@ export default function UserListPage() {
     setEditingUser(null);
     console.log("EDIT DATA:", data);
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <StatusView
+        type="error"
+        message="Could not connect to the server.Please make sure the API is running, amigo!!"
+        onRetry={fetchUser}
+      />
+    );
+  }
+  if (users.length === 0) {
+    return (
+      <StatusView
+        type="empty"
+        message="It looks a bit quiet here...... No products have been added yet."
+      />
+    );
+  }
 
   return (
     //search
