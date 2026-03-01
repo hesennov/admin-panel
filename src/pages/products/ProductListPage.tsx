@@ -8,6 +8,7 @@ import EditProductForm from "./EditProductForm";
 import StatusView from "../../components/common/StatusView";
 import { productsColumn } from "./ProductsColumn";
 import { useState } from "react";
+import { productService } from "../../services/productService";
 
 const ProductListPage = () => {
   const {
@@ -60,8 +61,11 @@ const ProductListPage = () => {
     console.log(id);
   };
 
-  const handleSubmitEditsave = () => {
-    console.log("edited ");
+  const handleSubmitEditsave = async (data: EditProduct) => {
+    if (!selectedEditProduct) return;
+    const updated = await productService.put(selectedEditProduct.id, data);
+    updateProduct(updated);
+    setSelectedEditProduct(null);
   };
 
   if (loading) {
