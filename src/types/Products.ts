@@ -9,7 +9,7 @@ export interface Products {
 export interface ProductResponse {
   data: Products[];
   total: number;
-  totalPage: number;
+  totalPages: number;
   page: number;
   limit: number;
 }

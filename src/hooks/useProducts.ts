@@ -3,22 +3,26 @@ import type { Products, ProductResponse, EditProduct } from "../types/Products";
 import { productService } from "../services/productService";
 export function useProducts() {
   const [products, setProducts] = useState<Products[]>([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
   const [totalPages, setTotalPages] = useState(0);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchProducts = async () => {
+    setLoading(true);
+    try {
+      const res = await productService.gettAll({ page, search, limit: 10 });
+      setProducts(res.data);
+      setTotalPages(res.totalPages);
+    } catch (err) {
+      setError("server not work amigo");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      try {
-        const res = await productService.gettAll({ page, search, limit: 10 });
-        setProducts(res.data);
-        setTotalPages(res.totalPage);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchProducts();
   }, [page, search]);
 
@@ -43,5 +47,8 @@ export function useProducts() {
     loading,
     deleteProducts,
     updateProduct,
+    error,
+    fetchProducts,
+    setSearch,
   };
 }

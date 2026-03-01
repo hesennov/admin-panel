@@ -47,6 +47,7 @@ export default function UserListPage() {
     const user = users.find((u) => u.id === id);
     if (user) setEditingUser(user);
   };
+
   const handleCloseEditModal = () => {
     setEditingUser(null);
   };
