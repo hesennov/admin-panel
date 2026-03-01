@@ -3,7 +3,7 @@ import type { Products, ProductResponse, EditProduct } from "../types/Products";
 import { productService } from "../services/productService";
 export function useProducts() {
   const [products, setProducts] = useState<Products[]>([]);
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ export function useProducts() {
     setProducts((prev) => prev.filter((p) => p.id !== id));
   };
 
-  const updateProduct = async (updateProduct: Products) => {
+  const updateProduct = (updateProduct: Products) => {
     setProducts((prev) =>
       prev.map((p) => (p.id === updateProduct.id ? updateProduct : p)),
     );
