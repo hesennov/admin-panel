@@ -33,7 +33,7 @@ export const userColumns = (actions: {
         )}
         {actions.onEdit && (
           <button
-            className="px-3 py-1 bg-yellow-500 rounded text-white"
+            className="px-3 py-1 bg-yellow-500 rounded text-white "
             onClick={() => actions.onEdit?.(row.id)}
           >
             Edit

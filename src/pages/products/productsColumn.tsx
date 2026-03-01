@@ -33,15 +33,15 @@ export const productsColumn = (actions: {
         <div className="flex gap-3">
           {actions.onDelete && (
             <span
-              className="px-2 py-1 bg-red-500 text-white"
+              className="px-2 py-1 bg-red-500 text-white rounded"
               onClick={() => actions.onDelete(row.id)}
             >
-              DElete
+              Delete
             </span>
           )}
           {actions.onEdit && (
             <span
-              className="bg-yellow-500 px-2 py-1 text-white"
+              className="bg-yellow-500 px-2 py-1 text-white rounded"
               onClick={() => actions.onEdit(row.id)}
             >
               EDIT
