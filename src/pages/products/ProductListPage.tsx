@@ -3,10 +3,9 @@ import ReusableTable from "../../components/reusableTable/ReusableTable";
 import ReusablePagination from "../../components/reusablePagination/ReusablePagination";
 import ReusableModal from "../../components/reusableModal/ReusableModal";
 import type { EditProduct, Products } from "../../types/Products";
-import { UserService } from "../../services/userService";
 import EditProductForm from "./EditProductForm";
 import StatusView from "../../components/common/StatusView";
-import { productsColumn } from "./ProductsColumn";
+import { productsColumn } from "./productsColumn";
 import { useState } from "react";
 import { productService } from "../../services/productService";
 

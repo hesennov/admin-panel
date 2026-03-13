@@ -16,6 +16,11 @@ const apiClient: AxiosInstance = axios.create({
 
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    const token = localStorage.getItem("token");
+    if(token && config.headers) {
+      config.headers.Authorization = `barer ${token}`
+    }
+    
     console.log(` ${config.method?.toUpperCase()} ${config.url}`);
     return config;
   },
@@ -26,7 +31,8 @@ apiClient.interceptors.response.use(
   (response) => response.data,
   (error: AxiosError) => {
     if (error.response?.status === 401) {
-      console.log("erorororororors 401");
+        window.location.href = "/login";
+      console.log("Unauthorized -tokenn 401");
     }
     return Promise.reject(error);
   },
