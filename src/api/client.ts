@@ -1,9 +1,10 @@
 import axios from "axios";
 import type {
-  AxiosInstance,
+  AxiosInstance, // axios.create
   AxiosError,
-  InternalAxiosRequestConfig,
+  InternalAxiosRequestConfig, //for config
 } from "axios";
+
 
 const baseURL: string = import.meta.env.VITE_API_BASE_URL;
 const timeout: number = Number(import.meta.env.VITE_TIMEOUT) || 5000;
@@ -18,10 +19,10 @@ apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem("token");
     if(token && config.headers) {
-      config.headers.Authorization = `barer ${token}`
+      config.headers.Authorization = `bearer ${token}`
     }
-    
-    console.log(` ${config.method?.toUpperCase()} ${config.url}`);
+
+    console.log(` ${config.method?.toUpperCase()} ${config.url} test lorem 12`);
     return config;
   },
   (error: AxiosError) => Promise.reject(error),
@@ -37,5 +38,4 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
 export default apiClient;
