@@ -1,23 +1,22 @@
 import { orderService } from "../services/orderService";
-import type { OrdersResponse, Orders, EditOrders } from "../types/orders";
+import type {  Orders } from "../types/orders";
 import { useState, useEffect } from "react";
 
 export function useOrders() {
   const [orders, setOrders] = useState<Orders[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const response = await orderService.getall({ page, search, limit: 10 });
+      const response = await orderService.getall({ page,  limit: 10 });
       setOrders(response.data);
       setTotalPages(response.totalPages);
     } catch (err) {
-      console.log(`server not work amigo ${err}`);
+      setError(`server not work amigo ${err}`);
     } finally {
       setLoading(false);
     }
@@ -25,7 +24,7 @@ export function useOrders() {
 
   useEffect(() => {
     fetchOrders();
-  }, [page, search]);
+  }, [page, ]);
 
   const deleteOrder = async (id: number) => {
     await orderService.delete(id);
@@ -45,8 +44,6 @@ export function useOrders() {
     orders,
     page,
     setPage,
-    search,
-    setSearch,
     loading,
     error,
     totalPages,
